@@ -2,6 +2,17 @@ public class Main
 {
 
     public static void main(String args[]) {
-        System.out.println(1==3);
+        Singleton s = Singleton.getSingleton();
+        s.printRandom();
+
+        Singleton s1 = Singleton.getSingleton();
+        s1.printRandom();
+
+        Singleton s2 = Singleton.getSingleton();
+        s2.printRandom();
+
+
+        Singleton s3 = Singleton.getSingleton();
+        s3.printRandom();
     }
 }
