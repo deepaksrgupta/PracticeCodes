@@ -1,18 +1,15 @@
 public class Main
 {
-
     public static void main(String args[]) {
-        Singleton s = Singleton.getSingleton();
-        s.printRandom();
+        LogisticsFactoryMethod factoryMethod = new LogisticsFactoryMethod();
 
-        Singleton s1 = Singleton.getSingleton();
-        s1.printRandom();
+        Logistics roadways = factoryMethod.getLogistics("Roadways");
+        System.out.println(roadways.getShipmentVia());
 
-        Singleton s2 = Singleton.getSingleton();
-        s2.printRandom();
+        Logistics waterways = factoryMethod.getLogistics("Waterways");
+        System.out.println(waterways.getShipmentVia());
 
-
-        Singleton s3 = Singleton.getSingleton();
-        s3.printRandom();
+        Logistics airways = factoryMethod.getLogistics("Airways");
+        System.out.println(airways.getShipmentVia());
     }
 }
