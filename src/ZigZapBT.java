@@ -40,7 +40,7 @@ public class ZigZapBT
         }
     }
 
-    static Node root = null;
+    public static Node root = null;
 
     static void zigzagPrint(Node current) {
         Stack<Node> st1 = new Stack<>();
