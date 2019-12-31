@@ -74,6 +74,95 @@ public class ZigZapBT
         }
     }
 
+    public static void inorderIterative(Node root){
+        if(root == null){
+            return;
+        }
+
+        Stack<Node> st = new Stack<>();
+
+        Node current  = root;
+        boolean isStack = false;
+        while (current != null){
+
+            if(isStack){
+                System.out.print(current.data+ " ");
+
+                if(current.right != null){
+                    current = current.right;
+                    isStack = false;
+                }else{
+                    if(st.size() > 0){
+                        current = st.pop();
+                        isStack = true;
+                    }else{
+                        current = null;
+                    }
+                }
+                continue;
+            }
+
+            if(current.left != null && current.right != null){
+                st.push(current);
+                current = current.left;
+                isStack = false;
+                continue;
+            }
+
+            if(current.left == null && current.right == null){
+                System.out.print(current.data+ " ");
+                if(st.size()>0){
+                    current = st.pop();
+                    isStack = true;
+                }else{
+                    current = null;
+                }
+                continue;
+            }
+
+            if(current.left != null){
+                st.push(current);
+                current = current.left;
+                isStack = false;
+                continue;
+            }
+
+            if(current.right != null){
+                System.out.print(current.data+ " ");
+                current = current.right;
+                isStack = false;
+            }
+        }
+    }
+
+    public static void preOrderItr(Node root) {
+        if(root == null){
+            return;
+        }
+
+        Node current = root;
+        Stack<Node> stack = new Stack<>();
+
+        while (current != null || stack.size() != 0){
+            if(current != null){
+                System.out.print(current.data+ " ");
+                if(current.left != null){
+                    stack.push(current);
+                    current = current.left;
+                }else{
+                    current = null;
+                }
+            }else{
+                current = stack.pop();
+                if(current.right != null){
+                    current = current.right;
+                }else{
+                    current = null;
+                }
+            }
+        }
+    }
+
     void print2D(Node root, int space,int indent)
     {
         // Base case
