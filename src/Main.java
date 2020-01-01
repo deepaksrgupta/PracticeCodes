@@ -1,9 +1,10 @@
-import java.util.Random;
-import java.util.Stack;
+import java.util.HashMap;
 
 public class Main
 {
-    public static void main(String args[]) {
 
+    public static void main(String args[]) {
+        MaxRodCut maxRodCut = new MaxRodCut();
+        maxRodCut.MemicRodCut();
     }
 }
