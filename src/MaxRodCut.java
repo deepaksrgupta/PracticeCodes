@@ -2,7 +2,8 @@ import java.util.HashMap;
 
 public class MaxRodCut {
 
-    //same as hash map method but used proper array to cache the sub problems and utilise it
+    //bottom up technique to solve rod cut uses tabular method to store result of sub problems in bottom up manner
+    //usually bottom up is faster than top down by constant factor
     static int cutRodDP(int price[],int rodSize) {
 
         int subProblems[] = new int[rodSize+1];
@@ -20,9 +21,8 @@ public class MaxRodCut {
         return subProblems[rodSize];
     }
 
-    //faster than exponential time
-    //cache all the sub problems output in hashmap and return it if sub problem is already computed
-    //not much difference in time but each recursion stack take activation record memory which makes it little slower compared to array based dp method
+    //top down approach to solve rod cut problem uses memoization to store result in top down manner
+    //instead of hashmap we can use array to store result of sub problems
     static HashMap<Integer,Integer> hm = new HashMap<>();
     public static int cutRod(int arr[],int size){
 
