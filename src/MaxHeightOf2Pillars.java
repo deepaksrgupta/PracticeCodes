@@ -2,84 +2,123 @@ import java.util.*;
 
 
 public class MaxHeightOf2Pillars {
+    static int countR  = 0;
+    public static int solve2PillarsR(int[] arr, int lh, int rh, int currentMax, int currentIndex){
 
-    public static HashMap<String,Integer> hashMap = new HashMap<>();
-
-    public static int count = 0;
-
-    public static int maxHeightOfPillarsDP(int leftHeight,int rightHeight,int maxHeightDP ,int[] a,int index)
-    {
-        count = count+1;
-
-        String key = String.valueOf(leftHeight)+ " " + String.valueOf(rightHeight) + " " + String.valueOf(maxHeightDP) + " " + String.valueOf(index);
-
-        if(hashMap.containsKey(key))
-        {
-            int val = hashMap.get(key);
-            hashMap.put(key,val+1);
-            return val;
-        }
-        else hashMap.put(key,1);
-
-        if(leftHeight == rightHeight && leftHeight > maxHeightDP)
-        {
-            return leftHeight;
+        countR++;
+        if(lh == rh){
+            currentMax = lh;
         }
 
-        if(index == a.length) {
-            return 0;
+        if(currentIndex == arr.length){
+            return currentMax;
         }
 
-        int third = maxHeightOfPillarsDP(leftHeight+a[index],rightHeight,maxHeightDP,a,index+1);
-        int second = maxHeightOfPillarsDP(leftHeight,rightHeight+a[index],maxHeightDP,a,index+1);
-        int first = maxHeightOfPillarsDP(leftHeight,rightHeight,maxHeightDP,a,index+1);
+        int leftTaken   = solve2PillarsR(arr,lh+arr[currentIndex],rh,currentMax,currentIndex+1);
 
-        //System.out.println(first+" "+second+" "+third);
+        int rightTaken   = solve2PillarsR(arr,lh,rh+ arr[currentIndex],currentMax,currentIndex+1);
 
-        return Math.max(Math.max(first,second),third);
+        int noneTaken   = solve2PillarsR(arr,lh,rh,currentMax,currentIndex+1);
+
+        return Math.max(Math.max(leftTaken,rightTaken),noneTaken);
     }
 
+    static int countTD  = 0;
+    static HashMap<String,Integer> hashMap = new HashMap<>();
+    public static int solve2PillarsTD(int[] arr, int lh, int rh, int currentMax, int currentIndex){
 
-    public static int maxHeightRecursive = 0;
+        countTD++;
 
-    public static void maxHeightOfPillarRecursive(int leftHeight,int rightHeight,int[] arr,int index){
-
-        count = count+1;
-
-        if(leftHeight == rightHeight && leftHeight >maxHeightRecursive)
-        {
-            maxHeightRecursive = leftHeight;
+        if(lh == rh && lh > currentMax){
+            currentMax = lh;
         }
 
-        if(index == arr.length)
-            return;
+        if(currentIndex == arr.length){
+            return currentMax;
+        }
 
-        maxHeightOfPillarRecursive(leftHeight+arr[index],rightHeight,arr,index+1);
-        maxHeightOfPillarRecursive(leftHeight,rightHeight+arr[index],arr,index+1);
-        maxHeightOfPillarRecursive(leftHeight+arr[index],rightHeight,arr,index+1);
+        int leftTaken = 0;
+        if(!hashMap.containsKey((lh+arr[currentIndex]) + " " + rh + " " + (currentIndex+1))){
+            leftTaken   = solve2PillarsTD(arr,lh+arr[currentIndex],rh,currentMax,currentIndex+1);
+            hashMap.put((lh+arr[currentIndex]) + " " + rh + " " + (currentIndex+1),leftTaken);
+        }
 
+        leftTaken = hashMap.get((lh+arr[currentIndex]) + " " + rh + " " + (currentIndex+1));
+
+        int rightTaken = 0;
+        if(!hashMap.containsKey(lh+ " " + (rh+ arr[currentIndex]) + " " + (currentIndex+1))){
+            rightTaken   = solve2PillarsTD(arr,lh,rh+ arr[currentIndex],currentMax,currentIndex+1);
+            hashMap.put(lh+ " " + (rh+ arr[currentIndex]) + " " + (currentIndex+1),rightTaken);
+        }
+
+        rightTaken = hashMap.get(lh+ " " + (rh+ arr[currentIndex]) + " " + (currentIndex+1));
+
+        int noneTaken = 0;
+        if(!hashMap.containsKey(lh+ " " + rh + " " + (currentIndex+1))){
+            noneTaken   = solve2PillarsTD(arr,lh,rh,currentMax,currentIndex+1);
+            hashMap.put(lh+ " " + rh + " " + (currentIndex+1),noneTaken);
+        }
+        noneTaken = hashMap.get(lh+ " " + rh + " " + (currentIndex+1));
+
+
+        return Math.max(Math.max(leftTaken,rightTaken),noneTaken);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static int solve2PillarsBU(int[] arr){
+        int sum = 0;
+        for (int a : arr){
+            sum+= a;
+        }
+        int [][][] table = new int[arr.length][sum][sum];
 
-        //364 function calls without dp
+        for(int i = 0 ;i < arr.length; i++){
 
-        int[] array = {1,2,3,4,6,5,3,7,5};
-
-        //int[] array = {1,2,3,4,6};
-
-        //int[] array = {2,4,6};
-
-        System.out.println(maxHeightOfPillarsDP(0,0,0,array,0));
-
-        //maxHeightOfPillarRecursive(0,0,array,0);
-        //System.out.println(maxHeightRecursive);
-
-        for(Map.Entry<String,Integer> entry: hashMap.entrySet())
-        {
-            System.out.println(entry.getKey()+" "+entry.getValue());
         }
 
-        System.out.println("Total function calls "+count);
+        return -1;
+    }
+
+    public static void main(String args[]) {
+
+        //int arr[] = {0,2,1,3,5,4,6,2,3};
+        int arr[] = {4,2,1,3};
+
+        System.out.println(solve2PillarsTD(arr,0,0,0,0));
+        System.out.println(countTD);
+
+        System.out.println(solve2PillarsR(arr,0,0,0,0));
+        System.out.println(countR);
+
+        HashMap<String, ArrayList<String>> newHashMap = new HashMap<>();
+        for (Map.Entry<String,Integer>  e: hashMap.entrySet()) {
+            //System.out.println(e.getKey()+ " ----> "+e.getValue());
+            String [] s = e.getKey().split(" ");
+
+            String lh = s[0];
+            String rh = s[1];
+            String index = s[2];
+            Integer maxHeight = e.getValue();
+
+            if(newHashMap.containsKey(index)){
+
+                ArrayList<String> val = newHashMap.get(index);
+                val.add(String.format("(l:%1$s r:%1$s m:%2$s)",lh,rh,maxHeight));
+                newHashMap.put(index,val);
+
+            }else{
+                ArrayList<String> val = new ArrayList<>();
+                val.add(String.format("(l:%1$s r:%1$s m:%2$s)",lh,rh,maxHeight));
+                newHashMap.put(index,val);
+            }
+        }
+
+        for (Map.Entry<String,ArrayList<String>>  e: newHashMap.entrySet()) {
+            System.out.print(e.getKey()+" ");
+            for (String s: e.getValue()){
+                System.out.print(s+ " ");
+            }
+
+            System.out.println();
+        }
     }
 }
