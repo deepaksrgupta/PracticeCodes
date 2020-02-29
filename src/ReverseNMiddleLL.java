@@ -18,6 +18,17 @@ public class ReverseNMiddleLL
         printLL(node.next);
     }
 
+    public static LNode reverseLLRecursive(LNode head,LNode reversed) {
+        if(head == null){
+            return  reversed;
+        }
+
+        LNode current = head;
+        head = head.next;
+        current.next = reversed;
+        return reverseLLRecursive(head,current);
+    }
+
     public static LNode reverseLL(LNode node){
 
         if(node == null)
@@ -41,7 +52,7 @@ public class ReverseNMiddleLL
     }
 
 
-    public static void printMiddle(LNode head){
+    public static void checkLLPalindrome(LNode head){
 
         if(head== null)
             return;
@@ -101,9 +112,15 @@ public class ReverseNMiddleLL
         head.next.next.next = new LNode(3);
         head.next.next.next.next = new LNode(2);
         head.next.next.next.next.next = new LNode(1);
-        //head.next.next.next.next.next.next = new LNode(1);
+        head.next.next.next.next.next.next = new LNode(1);
 
-        printMiddle(head);
+        LNode result = reverseLL(head);
+        printLL(result);
+        System.out.println();
+        result = reverseLLRecursive(result,null);
+        printLL(result);
+
+        //checkLLPalindrome(head);
 
     }
 }
