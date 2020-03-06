@@ -163,6 +163,83 @@ public class ZigZapBT
         }
     }
 
+    public void postOderItr(Node root){
+
+        //need to keep track of all child nodes are processed or not
+        class Wrap {
+            Node val;
+            Boolean isChildProcessed;
+
+            Wrap(Node val,boolean temp){
+                this.val = val;
+                isChildProcessed = temp;
+            }
+        }
+
+        Node currentNode = root;
+        Stack<Wrap> st = new Stack<>();
+
+        while (currentNode != null) {
+
+            //if it is leaf node then print it and go back to parent via stack
+            if (currentNode.left == null && currentNode.right == null) {
+                System.out.print(currentNode.data + ",");
+
+                if (st.size() > 0 && !st.peek().isChildProcessed) {
+
+                    //left sub tree is processed now process right sub tree from child
+                    st.peek().isChildProcessed = true;
+
+                    currentNode = st.peek().val.right;
+
+                    //right sub tree is processed now process parent
+                    if(currentNode == null && st.size() > 0) {
+                        while (st.size() > 0 && st.peek().isChildProcessed) {
+                            currentNode = st.pop().val;
+                            System.out.print(currentNode.data + ",");
+                        }
+
+                        if (st.size() > 0) {
+                            st.peek().isChildProcessed = true;
+                            currentNode = st.peek().val.right;
+                        } else {
+                            currentNode = null;
+                        }
+
+                    }
+
+                } else {
+
+                    //right sub tree is processed now process parent
+                    while (st.size() > 0 && st.peek().isChildProcessed) {
+                        currentNode = st.pop().val;
+                        System.out.print(currentNode.data + ",");
+                    }
+
+                    if (st.size() > 0) {
+                        st.peek().isChildProcessed = true;
+                        currentNode = st.peek().val.right;
+                    } else {
+                        currentNode = null;
+                    }
+
+                }
+            } else if (currentNode.left != null) {
+
+                //add it to stack saying childs are not explored
+                Wrap node = new Wrap(currentNode, false);
+                st.push(node);
+                currentNode = currentNode.left;
+            } else {
+
+                //add it to stack saying childs are not explored
+                Wrap node = new Wrap(currentNode, true);
+                st.push(node);
+                currentNode = currentNode.right;
+            }
+        }
+    }
+
     void print2D(Node root, int space,int indent)
     {
         // Base case
@@ -206,6 +283,8 @@ public class ZigZapBT
         btZigZag.zigzagPrint(btZigZag.root);
 
         btZigZag.print2D(btZigZag.root,0,4);
+
+        btZigZag.postOderItr(btZigZag.root);
     }
 
 }
