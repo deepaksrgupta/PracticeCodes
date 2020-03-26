@@ -1,14 +1,9 @@
 import java.util.*;
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; }
-}
-
-public class Main {
+public class makeListOddEven {
 
     //https://leetcode.com/problems/odd-even-linked-list/
+    // O(n) with no space
     public ListNode oddEvenList(ListNode head) {
 
         if(head == null || head.next == null || head.next.next == null){
@@ -51,8 +46,7 @@ public class Main {
         return head;
 
     }
-    public static void main(String[] args) {
-
+    public ListNode getInitLL(){
         ListNode head = new ListNode(1);
 
         head.next = new ListNode(2);
@@ -63,7 +57,15 @@ public class Main {
         head.next.next.next.next.next.next = new ListNode(7);
         head.next.next.next.next.next.next.next = new ListNode(8);
 
-        System.out.println(new Main().oddEvenList(head));
+        return head;
+    }
+
+    public static void main(String[] args) {
+
+        makeListOddEven oddEven = new makeListOddEven();
+        ListNode head = oddEven.getInitLL();
+
+        System.out.println(oddEven.oddEvenList(head));
 
     }
 }
