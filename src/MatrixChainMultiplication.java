@@ -51,42 +51,34 @@ public class MatrixChainMultiplication {
         return hashMap.get(i+","+j);
     }
 
-    static int MatrixChainOrder(int p[], int n)
-    {
-        /* For simplicity of the program, one extra row and one
-        extra column are allocated in m[][].  0th row and 0th
-        column of m[][] are not used */
-        int m[][] = new int[n][n];
+    public static int matrixChainMultiplicationBU(int[] a){
 
-        int i, j, k, L, q;
+        int dp[][] = new int[a.length][a.length];
 
-        /* m[i,j] = Minimum number of scalar multiplications needed
-        to compute the matrix A[i]A[i+1]...A[j] = A[i..j] where
-        dimension of A[i] is p[i-1] x p[i] */
+        for(int subArrayLength = 2; subArrayLength < a.length; subArrayLength++) { //subArray length
 
-        // cost is zero when multiplying one matrix.
-        for (i = 1; i < n; i++)
-            m[i][i] = 0;
+            for(int left = 0; left < a.length - subArrayLength; left++) { //starting index
 
-        // L is chain length.
-        for (L=2; L<n; L++)
-        {
-            for (i=1; i<n-L+1; i++)
-            {
-                j = i+L-1;
-                if(j == n) continue;
-                m[i][j] = Integer.MAX_VALUE;
-                for (k=i; k<=j-1; k++)
-                {
-                    // q = cost/scalar multiplications
-                    q = m[i][k] + m[k+1][j] + p[i-1]*p[k]*p[j];
-                    if (q < m[i][j])
-                        m[i][j] = q;
+                int right  = left +  subArrayLength;    // end index for each sub array
+
+
+                dp[left][right] = Integer.MAX_VALUE;    //default max value
+
+                for(int k = left + 1 ; k < right; k++){ //consider is value inside in the range of subArray
+
+
+                    dp[left][right] = Math.min(dp[left][right], dp[left][k] + (a[left]* a[k]*a[right]) +dp[k][right]);
+
                 }
+
+
             }
+
+
         }
 
-        return m[1][n-1];
+
+        return dp[0][a.length-1];
     }
 
     static void findMatrixHelper(){
@@ -98,7 +90,7 @@ public class MatrixChainMultiplication {
         System.out.println(solveMChainMulTopDown(dimension,0,dimension.length-1));
         System.out.println(countTD);
 
-        System.out.println(MatrixChainOrder(dimension,dimension.length));
+        System.out.println(matrixChainMultiplicationBU(dimension));
     }
 
     /*
