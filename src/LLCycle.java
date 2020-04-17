@@ -18,7 +18,7 @@ public class LLCycle {
 
         slow = head;
 
-        while (slow.data != fast.data) {
+        while (fast != null  && slow != fast) {
             slow = slow.right;
             fast = fast.right;
         }
