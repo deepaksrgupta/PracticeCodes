@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-class StringEditWithOutput {
+class EditDistanceWithOutput {
 
     static String[] diffBetweenTwoStrings(String source, String target) {
 

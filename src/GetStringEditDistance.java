@@ -1,4 +1,4 @@
-public class StringEditDistance {
+public class GetStringEditDistance {
     private String first;
     private String second;
     private int[][] cache;
@@ -57,7 +57,7 @@ public class StringEditDistance {
     //https://leetcode.com/problems/edit-distance/
     public static void main(String[] args) {
         Long l1 = System.currentTimeMillis();
-        System.out.println(new StringEditDistance().minDistance("intention","execution"));
+        System.out.println(new GetStringEditDistance().minDistance("intention","execution"));
         Long l2 = System.currentTimeMillis();
         System.out.println(l2-l1);
     }

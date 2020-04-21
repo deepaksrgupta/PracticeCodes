@@ -1,4 +1,4 @@
-public class StringDivisible {
+public class DivisibleString {
 
     //asked in vmware
     public static String stringDivisible(String start,String end){
