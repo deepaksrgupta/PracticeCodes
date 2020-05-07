@@ -1,15 +1,7 @@
 import java.util.*;
 
-public class OptimizedDisjointSet {
-    static class Edge{
-        int source;
-        int destination;
 
-        public Edge(int source, int destination) {
-            this.source = source;
-            this.destination = destination;
-        }
-    }
+public class OptimizedDisjointSet {
 
     static class SubSet {
         int parent;
@@ -77,7 +69,7 @@ public class OptimizedDisjointSet {
             for (int i = 0; i <allEdges.size() ; i++) {
                 Edge edge = allEdges.get(i);
                 int x_set = find(subSets, edge.source);
-                int y_set = find(subSets, edge.destination);
+                int y_set = find(subSets, edge.dest);
 
                 //check if source vertex and destination vertex belongs to the same set
                 // if in same set then cycle has been detected else combine them into one set
