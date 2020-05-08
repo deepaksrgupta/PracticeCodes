@@ -6,15 +6,8 @@ public class HamiltonianPaths {
 
     /*
        just  recursive solution and complexity is O(n-1!)
-
-
-       we can throw in hashMap to cache the subproblems computations
-       (start,mask) =  for all i $not in mask do min(i,mask|i)
-       O(n*n*2^n)
-
-
      */
-    public static void findHamiltonianPaths(Graph g,int start, int verticesCount){
+    public static void findHamiltonianPathsRecursive(Graph g,int start, int verticesCount){
 
         List<Integer> path = new ArrayList<>();
         boolean visited[]  = new boolean[verticesCount];
@@ -53,6 +46,17 @@ public class HamiltonianPaths {
 
     }
 
+
+    /*
+       we can throw in hashMap to cache the subproblems computations
+       (start,mask) =  for all i $not in mask do min(i,mask|i)
+       O(n*n*2^n)
+     */
+    public static void findHamiltonianPathTD(Graph g, int start){
+
+    }
+
+
     public static void main(String[] args) {
         List<Edge> edges = Arrays.asList(
                 new Edge(0, 1), new Edge(0, 2), new Edge(0, 3),
@@ -63,6 +67,6 @@ public class HamiltonianPaths {
 
         Graph g = new Graph(edges,4);
 
-        findHamiltonianPaths(g,0,4);
+        findHamiltonianPathsRecursive(g,0,4);
     }
 }
