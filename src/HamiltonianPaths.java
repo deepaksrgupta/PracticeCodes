@@ -7,6 +7,7 @@ public class HamiltonianPaths {
 
     /*
        just  recursive solution and complexity is O(n-1!)
+       we can throw in hash map of dimension from start and visited array states leading up to O(n*n*2^n) solution
      */
     public static void findHamiltonianPathsRecursive(Graph g,int start, int verticesCount){
 
