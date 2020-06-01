@@ -42,12 +42,14 @@ public class ProducerConsumer {
 
         @Override
         public void run() {
+            Random r = new Random();
+
             while (true){
 
                 try {
                     Integer i = buffer.take();
                     System.out.println("[Consumer] : got "+i);
-
+                    Thread.sleep(r.nextInt(100));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
