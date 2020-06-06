@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class SegmentTrees {
+public class SegmentTreesBottomUp {
 
     int[] segmentTree;
     int segmentTreeLeafStart;
@@ -69,6 +69,7 @@ public class SegmentTrees {
         return sum;
     }
 
+    /*
     public static void main(String[] args) throws Exception {
 
         int[] input = {1,5,2,4,3,5,2,3,8,3,7,9,10};
@@ -96,4 +97,5 @@ public class SegmentTrees {
         //System.out.println("\n"+tree.sumRange(1,6));
         System.out.println("\n"+tree.sumRange(0,input.length-1));
     }
+    */
 }

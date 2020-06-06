@@ -56,7 +56,7 @@ public class RangeQueryWithSQRT {
     }
 
     //works in O(sqrt(n))
-    public int getSumFromRange(int start, int end){
+    public int getSumRange(int start, int end){
         int sum = 0;
 
         for(int i = start; i <= end; ){
@@ -80,11 +80,11 @@ public class RangeQueryWithSQRT {
         int input[] = new int[] {5,8,6,3,2,5,2,6,7,1,7,5,6,2,3,2};
         RangeQueryWithSQRT rangeQueryWithSQRT = new RangeQueryWithSQRT(input);
 
-        int sum = rangeQueryWithSQRT.getSumFromRange(4,11);
+        int sum = rangeQueryWithSQRT.getSumRange(4,11);
         System.out.println(sum);
 
         rangeQueryWithSQRT.updateValueAtIndex(9,10);
-        sum = rangeQueryWithSQRT.getSumFromRange(4,11);
+        sum = rangeQueryWithSQRT.getSumRange(4,11);
         System.out.println(sum);
     }
      */
