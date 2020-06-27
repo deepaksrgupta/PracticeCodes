@@ -1,119 +1,148 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-public class LRU {
+import java.util.*;
+class LRU {
+
+    LinkedHashMap<Integer,Integer> cache;
+    int cacheSize;
 
 
-    class Pair {
-        int key;
-        int value;
-        Pair(int key, int value){
-            this.key = key;
-            this.value = value;
-        }
+    public LRU(int capacity) {
+        cache = new LinkedHashMap<>();
+        cacheSize = capacity;
     }
 
-    private LinkedList<Integer> dll = new LinkedList<>();
-    private HashMap<Integer, Pair>  cache = new HashMap<>();
-    private int cacheSize;
+    public int get(int key) {
 
-    LRU(int cacheSize){
-        this.cacheSize = cacheSize;
-    }
-
-
-    //O(1)
-    public int get(int key){
-
-        if(cache.containsKey(key)){
-
-
-            dll.remove(Integer.valueOf(key));
-
-            dll.addLast(key);
-
-            return cache.get(key).value;
+        if(!cache.containsKey(key)){
+            return -1;
         }
 
-        return -1;
+        int value = cache.get(key);
+        cache.remove(key);
+        cache.put(key,value);
+
+        return value;
     }
 
-    //O(1)
-    public void  put(int key, int value){
+    public void put(int key, int value) {
 
+        //update the key if key exists 
         if(cache.containsKey(key)){
-            //get the node from dll and insert in the back || get ref from cache Pair then call deleteNaddLast()
-            Pair currentPair = cache.get(key);
-
-            dll.remove(currentPair.key);
-            dll.addLast(currentPair.key);
-
-        }else{
-
-            if(cache.size() == cacheSize){
-
-                //get the first node which is lru || deleteFirst()
-                int nodeToRemove = dll.removeFirst();
-
-                cache.remove(nodeToRemove);
+            cache.remove(key);
+        }
 
 
-
+        //if size is full then remove the first element
+        if(cache.size() == this.cacheSize){
+            for(Map.Entry<Integer,Integer> entry : cache.entrySet()){
+                cache.remove(entry.getKey());
+                break;
             }
-
-            //add in hm
-            Pair newEntry = new Pair(key,value);
-            cache.put(key,newEntry);
-
-
-            //add new pair in dll at first location || addFirst();
-            dll.addLast(key);
-
         }
+
+
+        //add the new item
+        cache.put(key,value);
     }
-
-
-
-    /*
-
-
-    1,2,3,4, 5
-
-
-    cs=3
-
-
-    3,V
-    4,Pair(V,ref)
-    5,V
-
-    4,3,5,
-
-
-     */
-
-
-    public static void main(String args[]){
-
-        LRU cache = new LRU(4);
-
-        cache.put(1,10);
-        cache.put(2,20);
-        cache.put(3,30);
-        cache.put(4,40);
-
-
-        System.out.println(cache.get(1));
-        System.out.println(cache.get(4));
-        //System.out.println(cache.get(1));
-        //3,2,1,4
-
-
-        cache.put(5,50);
-        cache.put(6,60);
-
-        System.out.println(cache.get(3));
-        System.out.println(cache.get(2));
-
-    }
-
 }
+
+/*
+1. requirement func and non func
+2. capacity and constraints
+3. API design
+4. Data model design
+5. High level design
+6. detail component design
+7. address bottleneck or performance issues or SPOF
+
+
+1. requirement func and non func
+
+func
+1. Sending a notification; inapp or mail
+2. For added products in cart we should send notify the user for product changes
+
+non func
+1. Consistent
+2. Available
+
+
+2. capacity and constraints
+
+total user 100M
+daily active users 10M
+
+
+3. API design
+
+getNotification(apiKey: string, userId: string, skip: int, limit: int): Array<Notification> | empty
+markNotificationAsRead(apiKey: string, userId: string, notificationIds: Array<Id>) : bool
+changeProductPrice() :
+
+4. Data model design
+
+Cart
+UserId : 4B
+//Products: Array<ProductId> 20B
+ProductId: 4B
+
+total size = 25B * 10M => 250MB => 400MB
+
+Notification
+Id : 4B
+UserId : 4B
+On: 4B (DT) 4B
+ProductDiffId: 4B
+
+ProductDiff
+ProductID:  4B
+PriceDiff: 4B
+On:
+//ProductIds: Array<Id>   20B
+//PricesDiff: Array<Int>  20B
+
+total size = 50B * 10M => 500MB
+
+
+5. High level design
+                  ->admin changes ->>>>>>>>>>>  API() ->           -> message broker[N] -> notificationService[N]
+client          -> LB[N] -> Web server[N] ->LB[N] -> Application Server[N] -> Sql database[M/S]
+                                            -> WS                   -> M
+                                            -> RS                   -> S
+App or desktop app
+
+6. detail component design
+ done
+
+
+ 7. address bottleneck or performance issues or SPOF
+
+
+
+1,1
+2,2
+3,3
+4,4
+5,5
+
+
+1,1
+2,2
+3,3
+4,4
+5,5
+6,6
+7,7
+8,8
+10,2.5
+9,2.25
+
+
+index data structure
+1,
+2,
+2.2222222221
+2.25
+2.5
+
+
+ */
