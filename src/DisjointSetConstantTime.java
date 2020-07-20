@@ -1,13 +1,15 @@
 class DisjointSetConstantTime{
 
-    int[] parent;
-    int[] rank;
+    private int[] parent;
+    private int[] rank;
+    private int numberOfComponents;
 
     /*
     when compression by path and union by rank is combined then disjoint set data structure attains constant time complexity
      */
     DisjointSetConstantTime(int size){
 
+        numberOfComponents = size;
         parent = new int[size];
         rank = new int[size];
         for(int i= 0 ;i < size; i++){
@@ -46,7 +48,11 @@ class DisjointSetConstantTime{
         if(xParent == yParent){
             //cannot do union since both are already present in same set
             return false;
-        }else if(rank[xParent] > rank[yParent]){
+        }
+
+        //both the components have diff parents
+        numberOfComponents--;
+        if(rank[xParent] > rank[yParent]){
 
             parent[yParent] = xParent;
 
@@ -61,6 +67,10 @@ class DisjointSetConstantTime{
         }
 
         return true;
+    }
+
+    public int getNumberOfComponents(){
+        return this.numberOfComponents;
     }
 
 }
