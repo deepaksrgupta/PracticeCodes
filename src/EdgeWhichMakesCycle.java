@@ -5,7 +5,7 @@ time complexity is O(n) i.e number of edges
 Runtime: 1 ms, faster than 68.34% of Java online submissions for Redundant Connection.
 Memory Usage: 39.7 MB, less than 63.64% of Java online submissions for Redundant Connection.
  */
-public class findEdgeWhichMakesCycle {
+public class EdgeWhichMakesCycle {
 
     int maxValue = 10000;
     public int[] findRedundantConnection(int[][] edges) {
