@@ -36,6 +36,42 @@ public class MinCostForTriangularization {
         return result;
     }
 
+    /*
+    https://leetcode.com/problems/minimum-score-triangulation-of-polygon/submissions/
+    Runtime: 3 ms, faster than 56.98% of Java online submissions for Minimum Score Triangulation of Polygon.
+    Memory Usage: 36.6 MB, less than 56.23% of Java online submissions for Minimum Score Triangulation of Polygon.
+     */
+    private int inf = 1_000_000_009;
+    public int minScoreTriangulationBU(int[] arr) {
+
+        if(arr == null || arr.length <= 1){
+            return 0;
+        }
+
+        int [][]dp = new int[arr.length][arr.length];
+
+        for(int subArrayLength = 2; subArrayLength < arr.length; subArrayLength++){
+
+            for(int start = 0; start < arr.length - subArrayLength; start++){
+
+
+                int end = start + subArrayLength;
+                dp[start][end] = inf;
+
+                for(int midCrossing = start+1; midCrossing < end; midCrossing++){
+
+                    dp[start][end] = Math.min(dp[start][end],
+                            dp[start][midCrossing] + dp[midCrossing][end] + arr[start] * arr[midCrossing] * arr[end]);
+                }
+
+            }
+
+        }
+
+
+        return dp[0][arr.length-1];
+    }
+
     public static void main(String[] args) {
 
         int a[] = {3,7,4,5};
