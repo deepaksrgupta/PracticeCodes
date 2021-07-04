@@ -11,7 +11,7 @@ public class PairSumK {
 
         int[][] result = findPairsWithGivenDifference(arr,k);
 
-        for(var t : result){
+        for(int[] t : result){
             System.out.println(t[0]+" "+t[1]);
         }
     }

@@ -39,7 +39,7 @@ public class SimplifyRelativePath {
                 if(stack.size() > 0) {
                     stack.removeLast();
                 }
-            } else if (res.equals("/") || res.equals(".") || res.isEmpty() || res.isBlank()){
+            } else if (res.equals("/") || res.equals(".") || res.isEmpty() || res.isEmpty()){
                 continue;
             }else {
                 stack.addLast(res);

@@ -8,7 +8,7 @@ public class RegexMatch {
             return true;
         }
 
-        if (p.isBlank()) return false;
+        if (p.isEmpty()) return false;
 
 
         if(s.equals(p)) return true;
