@@ -45,7 +45,6 @@ class NextPermutation {
         swap(nums, nextMaxIndex, numToReplace);
 
         Arrays.sort(nums, numToReplace + 1, nums.length);
-
     }
 
     public void reverse(int[] nums){

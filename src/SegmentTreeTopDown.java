@@ -119,7 +119,6 @@ public class SegmentTreeTopDown {
         return start + ( (end - start) / 2);
     }
 
-    /*
     public static void main(String args[]){
 
         int input[] = new int[] {5,8,6,3,2,5,2,6,7,1,7,5,6,2,3,2};
@@ -138,5 +137,4 @@ public class SegmentTreeTopDown {
         System.out.println("Sqrt algo " + rangeQueryWithSQRT.getSumRange(4,11));
 
     }
-     */
 }
