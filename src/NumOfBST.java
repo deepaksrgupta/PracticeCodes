@@ -4,7 +4,7 @@ public class NumOfBST {
     Runtime: 0 ms, faster than 100.00% of Java online submissions for Unique Binary Search Trees.
     Memory Usage: 35.9 MB, less than 34.04% of Java online submissions for Unique Binary Search Trees.
 
-    catalans number -> 2nCn / n + 2 -> can use direct formula for linear time solution
+    catalans number -> 2nCn / n + 1 -> can use direct formula for linear time solution
      */
     public int numTrees(int n) {
         int[] dp = new int[n + 1];
