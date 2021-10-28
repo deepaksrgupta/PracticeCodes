@@ -55,7 +55,7 @@ public class MatrixChainMultiplication {
 
         int dp[][] = new int[a.length][a.length];
 
-        for(int subArrayLength = 2; subArrayLength < a.length; subArrayLength++) { //subArray length
+        for(int subArrayLength = 2; subArrayLength < a.length; subArrayLength++) { //chain length corresponds to chain+1 elements
 
             for(int left = 0; left < a.length - subArrayLength; left++) { //starting index
 
@@ -93,8 +93,8 @@ public class MatrixChainMultiplication {
         System.out.println(matrixChainMultiplicationBU(dimension));
     }
 
-    /*
+    public static void main(String[] args) {
         MatrixChainMultiplication multiplication = new MatrixChainMultiplication();
         multiplication.findMatrixHelper();
-     */
+    }
 }
