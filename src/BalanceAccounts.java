@@ -167,4 +167,80 @@ Output:
 
 
     }
+
+    /*
+    # Design
+
+## Problem Statement
+Imagine you work at a startup with many copies of many different services
+running in production. You want to help engineers keep track of metrics like
+number of signups, number of requests, number of errors, etc. So you introduce
+the concept of "counters". You build a `Track` library that ships with every
+service, and anyone can call `Track.increment("some-metric")` in their code to
+increment the `some-metric` counter.
+
+This kind of thing is really useful for quickly spotting anomalies. If you
+graph number of signups over time and it suddenly goes to zero, then something
+is probably wrong. Assume this is mostly an operational tool (for example,
+we’re not keeping track of precise dollar amounts for accounting or request
+counts for rate limiting). Imagine we mostly want to see the number of
+signups per minute for the last 6 hours, or how many fraudulent cards were
+detected hourly for the last day.
+
+Starting from just that interface, design everything that happens after
+`Track.increment("some-metric")` gets called on a service, from what happens
+inside the service to how the data is sent, collected, stored and accessed.
+Think about how to support accessing the data, but don’t worry too much about
+any actual graphing UI.
+
+
+## Sample System Diagram
+```
++-----------+
+| login-srv |--> Track.increment("new-signup")
+|           |--> Track.increment("new-login")
++-----------+
+
+
++---------------------+
+| fraud-detection-srv |
+|                     |--> Track.increment("fraudulent-card")
++---------------------+
+
+
++----------------+
+| some-other-srv |--> Track.increment("some-metric")
+|                |--> Track.increment("some-other-metric")
++----------------+
+```
+
+## Sample Charts
+The final output of the system. For example, these two charts represent
+scenarios we might want to display using data from the system:
+
+```
+^ number of signups
+|
+|
+|   ▉
+| ▉ ▉
+| ▉ ▉ ▉
+| ▉ ▉ ▉ ▉ ▄
++----------> time
+
+^ number of fraudulent cards
+|
+|     ▉
+|     ▉
+|     ▉
+|     ▉
+| ▄ ▉ ▉ ▄
++--------> time
+```
+
+
+{
+
+}
+     */
 }
