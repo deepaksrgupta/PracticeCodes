@@ -13,6 +13,14 @@ public class Pair<K, V> {
         return value;
     }
 
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
+    }
+
     public Pair(K key, V value) {
         this.value = value;
         this.key = key;
