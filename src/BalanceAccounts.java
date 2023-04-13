@@ -243,4 +243,57 @@ scenarios we might want to display using data from the system:
 
 }
      */
+
+
+    /*
+    func & non func requirement
+
+func requirement
+
+-> accept a metric from different clients & record that metric counter; write
+-> show graph visualization of metrics vs time; read ; give minute granularity
+
+non func requirement
+available
+reliable
+durable
+
+
+api design
+
+post /increament
+
+increamentMetric(metricName: String) : Boolean
+
+
+getMetricsCount(startTime: DateTime, endTime: DateTime, granuralityLevel: {MINUTE, HOUR, DAY, MONTH} ) : List<Pair<Integer, DateTime>>
+
+
+data model design
+
+class Metric {
+	id: String
+	name: String
+	minuteLevelDate: DateTime
+	hitsCount: Int
+}
+
+
+capacity estimation (qps/ r:w)
+
+100 services
+
+10,000 metrics
+
+100K * 100 => 10M qps => write requests
+
+
+
+
+
+high level design
+
+
+identify & resolve issues
+     */
 }
